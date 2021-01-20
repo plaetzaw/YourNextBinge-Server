@@ -12,7 +12,8 @@ router.post("/popularMovies", async (req, res) => {
     let popularURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
 
     try {
-        let popular = await axios.get(popularURL)    
+        let popular = await axios.get(popularURL)  
+        console.log(popular.data)  
         res.status(200).send(popular.data);
     }
     catch (e) {

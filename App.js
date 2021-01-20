@@ -10,9 +10,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use(require("./routes/movies"))
-// app.use(require("./routes/tvshows"))
-// app.use(require("./routes/people"))
+app.use(require("./routes/movies"))
+app.use(require("./routes/tvshows"))
+app.use(require("./routes/people"))
 
 
 
