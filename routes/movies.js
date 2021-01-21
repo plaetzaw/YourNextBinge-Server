@@ -22,9 +22,8 @@ router.post("/popularMovies", async (req, res) => {
 })
 
 router.post("/fullmovieInfo", async (req, res) => {
-    console.log(req.body)
     let movie_id = req.body.id
-    console.log(movie_id)
+    // console.log(movie_id)
     let fullInfoURL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=en-US`
     let creditsURL = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_KEY}&language=en-US`
     let recsURL = `https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${API_KEY}&language=en-US`
@@ -34,6 +33,12 @@ router.post("/fullmovieInfo", async (req, res) => {
     try {
         let movieinfo = []
         let info = await axios.get(fullInfoURL);
+        if (info.data.budget === 0){
+            info.data.budget = "No Budget Listed"
+        }
+        if (info.data.revenue === 0){
+            info.data.revenue = "No Budget Listed"
+        }
         let credits = await axios.get(creditsURL);
         let recs = await axios.get(recsURL);
         let providers = await axios.get(providersURL)
