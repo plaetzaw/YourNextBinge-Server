@@ -23,38 +23,21 @@ router.post("/popularShows", async (req, res) => {
 
 router.post("/fullshowInfo", async (req, res) => {
     let tv_id = req.body.id
-    console.log(tv_id)
-    let fullURL = `https://api.themoviedb.org/3/tv/${tv_id}?api_key=${API_KEY}&language=en-US`
+    let infoURL = `https://api.themoviedb.org/3/tv/${tv_id}?api_key=${API_KEY}&language=en-US`
+    let creditsURL = `https://api.themoviedb.org/3/tv/${tv_id}/credits?api_key=${API_KEY}&language=en-US`
+    let recsURL = `https://api.themoviedb.org/3/tv/${tv_id}/recommendations?api_key=${API_KEY}&language=en-US`
 
     try {
-        let fullShow = await axios.get(fullURL)
-        res.status(200).send(fullShow.data)
-    }  catch (e) {
-        res.status(500).json({ message: "An error has occured", error: e})
-    }
-})
+        let info = await axios.get(infoURL)
+        let credits = await axios.get(creditsURL)
+        let recs = await axios.get(recsURL)
+        let showinfo = {
+            info: info.data,
+            credits: credits.data,
+            recs: recs.data
+        }
 
-router.post("/fullshowCredits", async (req, res) => {
-    let tv_id = req.body.id
-    console.log(tv_id)
-    let fullURL = `https://api.themoviedb.org/3/tv/${tv_id}/credits?api_key=${API_KEY}&language=en-US`
-
-    try {
-        let fullShow = await axios.get(fullURL)
-        res.status(200).send(fullShow.data)
-    }  catch (e) {
-        res.status(500).json({ message: "An error has occured", error: e})
-    }
-})
-
-router.post("/fullshowRecommendations", async (req, res) => {
-    let tv_id = req.body.id
-    console.log(tv_id)
-    let fullURL = `https://api.themoviedb.org/3/tv/${tv_id}/recommendations?api_key=${API_KEY}&language=en-US`
-
-    try {
-        let fullShow = await axios.get(fullURL)
-        res.status(200).send(fullShow.data)
+        res.status(200).send(showinfo)
     }  catch (e) {
         res.status(500).json({ message: "An error has occured", error: e})
     }
