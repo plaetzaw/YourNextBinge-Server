@@ -23,7 +23,6 @@ router.post("/popularMovies", async (req, res) => {
 
 router.post("/fullmovieInfo", async (req, res) => {
     let movie_id = req.body.id
-    // console.log(movie_id)
     let fullInfoURL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=en-US`
     let creditsURL = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_KEY}&language=en-US`
     let recsURL = `https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${API_KEY}&language=en-US`
@@ -31,19 +30,24 @@ router.post("/fullmovieInfo", async (req, res) => {
 
 
     try {
-        let movieinfo = []
         let info = await axios.get(fullInfoURL);
         if (info.data.budget === 0){
             info.data.budget = "No Budget Listed"
         }
         if (info.data.revenue === 0){
-            info.data.revenue = "No Budget Listed"
+            info.data.revenue = "No Revenue Listed"
         }
         let credits = await axios.get(creditsURL);
         let recs = await axios.get(recsURL);
         let providers = await axios.get(providersURL)
-        let fullmovieinfo = movieinfo.concat(info.data, credits.data, recs.data, providers.data)
-        res.status(200).send(fullmovieinfo);
+        let movieinfo = {
+            info: info.data,
+            credits: credits.data,
+            recs: recs.data,
+            providers: providers.data,
+        }
+
+        res.status(200).send(movieinfo);
     }  catch (e) {
         res.status(500).json({ message: "An error has occured", error: e});
     }
