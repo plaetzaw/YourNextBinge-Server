@@ -21,22 +21,17 @@ router.post("/popularPeople", async (req, res) => {
 router.post("/personInfo", async (req, res) => {
     let person_id = req.body.id
     console.log(person_id)
-    let fullURL = `https://api.themoviedb.org/3/person/${person_id}?api_key=${API_KEY}&language=en-US`
-    try {
-        let fullPerson = await axios.get(fullURL)
-        res.status(200).send(fullPerson.data)
-    }  catch (e) {
-        res.status(500).json({ message: "An error has occured", error: e})
-    }
-})
+    let infoURL = `https://api.themoviedb.org/3/person/${person_id}?api_key=${API_KEY}&language=en-US`
+    let creditsURL = `https://api.themoviedb.org/3/person/${person_id}/credits?api_key=${API_KEY}&language=en-US`
 
-router.post("/personCredits", async (req, res) => {
-    let person_id = req.body.id
-    console.log(person_id)
-    let fullURL = `https://api.themoviedb.org/3/person/${person_id}/credits?api_key=${API_KEY}&language=en-US`
     try {
-        let fullPerson = await axios.get(fullURL)
-        res.status(200).send(fullPerson.data)
+        let info = await axios.get(infoURL)
+        let credits = await axios.get(creditsURL)
+        let personinfo = {
+            info: info.data,
+            credits: credits.data,
+        }
+        res.status(200).send(personinfo)
     }  catch (e) {
         res.status(500).json({ message: "An error has occured", error: e})
     }
