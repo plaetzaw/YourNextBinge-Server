@@ -22,14 +22,18 @@ router.post("/personInfo", async (req, res) => {
     let person_id = req.body.id
     console.log(person_id)
     let infoURL = `https://api.themoviedb.org/3/person/${person_id}?api_key=${API_KEY}&language=en-US`
-    let creditsURL = `https://api.themoviedb.org/3/person/${person_id}/credits?api_key=${API_KEY}&language=en-US`
+    let moviecreditsURL = `https://api.themoviedb.org/3/person/${person_id}/movie_credits?api_key=${API_KEY}&language=en-US&sort_by=release_date.desc.`
+    let tvcreditsURL = `https://api.themoviedb.org/3/person/${person_id}/tv_credits?api_key=${API_KEY}&language=en-US&sort_by=release_date.desc`
+
 
     try {
         let info = await axios.get(infoURL)
-        let credits = await axios.get(creditsURL)
+        let moviecredits = await axios.get(moviecreditsURL)
+        let tvcredits = await axios.get(tvcreditsURL)
         let personinfo = {
             info: info.data,
-            credits: credits.data,
+            moviecredits: moviecredits.data,
+            tvcredits: tvcredits.data
         }
         res.status(200).send(personinfo)
     }  catch (e) {
