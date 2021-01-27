@@ -22,8 +22,8 @@ router.post("/personInfo", async (req, res) => {
     let person_id = req.body.id
     console.log(person_id)
     let infoURL = `https://api.themoviedb.org/3/person/${person_id}?api_key=${API_KEY}&language=en-US`
-    let moviecreditsURL = `https://api.themoviedb.org/3/person/${person_id}/movie_credits?api_key=${API_KEY}&language=en-US&sort_by=release_date.desc.`
-    let tvcreditsURL = `https://api.themoviedb.org/3/person/${person_id}/tv_credits?api_key=${API_KEY}&language=en-US&sort_by=release_date.desc`
+    let moviecreditsURL = `https://api.themoviedb.org/3/person/${person_id}/movie_credits?api_key=${API_KEY}&language=en-US`
+    let tvcreditsURL = `https://api.themoviedb.org/3/person/${person_id}/tv_credits?api_key=${API_KEY}&language=en-US&`
 
 
     try {
