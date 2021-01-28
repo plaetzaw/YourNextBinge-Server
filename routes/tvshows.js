@@ -9,8 +9,10 @@ const API_KEY = process.env.API_KEY
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.post("/popularShows", async (req, res) => {
+    let page = req.body.page || 1
+    console.log(page)
     let API_KEY = process.env.API_KEY
-    let popularURL = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`
+    let popularURL = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=${page}`
 
     try {
         let popular = await axios.get(popularURL);

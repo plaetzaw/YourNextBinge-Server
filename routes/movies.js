@@ -9,7 +9,7 @@ const API_KEY = process.env.API_KEY
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.post("/popularMovies", async (req, res) => {
-    let page = req.body.page
+    let page = req.body.page || 1
     console.log(page)
     let popularURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`
 
