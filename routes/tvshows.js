@@ -22,10 +22,10 @@ router.post('/popularShows', async (req, res) => {
 })
 
 router.post('/fullshowInfo', async (req, res) => {
-  const tv_id = req.body.id
-  const infoURL = `https://api.themoviedb.org/3/tv/${tv_id}?api_key=${API_KEY}&language=en-US`
-  const creditsURL = `https://api.themoviedb.org/3/tv/${tv_id}/credits?api_key=${API_KEY}&language=en-US`
-  const recsURL = `https://api.themoviedb.org/3/tv/${tv_id}/recommendations?api_key=${API_KEY}&language=en-US`
+  const tvID = req.body.id
+  const infoURL = `https://api.themoviedb.org/3/tv/${tvID}?api_key=${API_KEY}&language=en-US`
+  const creditsURL = `https://api.themoviedb.org/3/tv/${tvID}/credits?api_key=${API_KEY}&language=en-US`
+  const recsURL = `https://api.themoviedb.org/3/tv/${tvID}/recommendations?api_key=${API_KEY}&language=en-US`
 
   try {
     const info = await axios.get(infoURL)

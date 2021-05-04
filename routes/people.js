@@ -21,11 +21,11 @@ router.post('/popularPeople', async (req, res) => {
 })
 
 router.post('/personInfo', async (req, res) => {
-  const person_id = req.body.id
-  console.log(person_id)
-  const infoURL = `https://api.themoviedb.org/3/person/${person_id}?api_key=${API_KEY}&language=en-US`
-  const moviecreditsURL = `https://api.themoviedb.org/3/person/${person_id}/movie_credits?api_key=${API_KEY}&language=en-US`
-  const tvcreditsURL = `https://api.themoviedb.org/3/person/${person_id}/tv_credits?api_key=${API_KEY}&language=en-US&`
+  const personID = req.body.id
+  console.log(personID)
+  const infoURL = `https://api.themoviedb.org/3/person/${personID}?api_key=${API_KEY}&language=en-US`
+  const moviecreditsURL = `https://api.themoviedb.org/3/person/${personID}/movie_credits?api_key=${API_KEY}&language=en-US`
+  const tvcreditsURL = `https://api.themoviedb.org/3/person/${personID}/tv_credits?api_key=${API_KEY}&language=en-US&`
 
   try {
     const info = await axios.get(infoURL)
