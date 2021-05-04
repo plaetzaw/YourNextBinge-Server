@@ -9,7 +9,7 @@ router.use(bodyParser.urlencoded({ extended: false }))
 
 router.post('/popularMovies', async (req, res) => {
   const page = req.body.page || 1
-  console.log(page)
+  // console.log(page)
   const popularURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`
 
   try {
@@ -22,11 +22,11 @@ router.post('/popularMovies', async (req, res) => {
 })
 
 router.post('/fullmovieInfo', async (req, res) => {
-  const movie_id = req.body.id
-  const fullInfoURL = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=en-US`
-  const creditsURL = `https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_KEY}&language=en-US`
-  const recsURL = `https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${API_KEY}&language=en-US`
-  const providersURL = `https://api.themoviedb.org/3/movie/${movie_id}/watch/providers?api_key=${API_KEY}&language=en-US`
+  const movieID = req.body.id
+  const fullInfoURL = `https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&language=en-US`
+  const creditsURL = `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${API_KEY}&language=en-US`
+  const recsURL = `https://api.themoviedb.org/3/movie/${movieID}/recommendations?api_key=${API_KEY}&language=en-US`
+  const providersURL = `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${API_KEY}&language=en-US`
 
   try {
     const info = await axios.get(fullInfoURL)
@@ -37,9 +37,9 @@ router.post('/fullmovieInfo', async (req, res) => {
       info.data.revenue = 'No Revenue Listed'
     }
     const credits = await axios.get(creditsURL)
-    console.log(credits)
     const recs = await axios.get(recsURL)
     const providers = await axios.get(providersURL)
+
     const movieinfo = {
       info: info.data,
       credits: credits.data,
