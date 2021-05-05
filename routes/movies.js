@@ -29,23 +29,30 @@ router.post('/fullmovieInfo', async (req, res) => {
   const providersURL = `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${API_KEY}&language=en-US`
 
   try {
-    const info = await axios.get(fullInfoURL)
-    if (info.data.budget === 0) {
-      info.data.budget = 'No Budget Listed'
+    // const info = await axios.get(fullInfoURL)
+    // const credits = await axios.get(creditsURL)
+    // const recs = await axios.get(recsURL)
+    // const providers = await axios.get(providersURL)
+
+    // Huge optimization
+    const promisechain = await Promise.all([axios.get(fullInfoURL), axios.get(creditsURL), axios.get(recsURL), axios.get(providersURL)])
+    console.log(promisechain)
+
+    if (promisechain[0].data.budget === 0) {
+      promisechain[0].data.budget = 'No Budget Listed'
     }
-    if (info.data.revenue === 0) {
-      info.data.revenue = 'No Revenue Listed'
+    if (promisechain[0].data.revenue === 0) {
+      promisechain[0].data.revenue = 'No Revenue Listed'
     }
-    const credits = await axios.get(creditsURL)
-    const recs = await axios.get(recsURL)
-    const providers = await axios.get(providersURL)
 
     const movieinfo = {
-      info: info.data,
-      credits: credits.data,
-      recs: recs.data,
-      providers: providers.data
+      info: promisechain[0].data,
+      credits: promisechain[1].data,
+      recs: promisechain[2].data,
+      providers: promisechain[3].data
     }
+
+    console.log(movieinfo)
 
     res.status(200).send(movieinfo)
   } catch (e) {
