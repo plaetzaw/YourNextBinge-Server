@@ -28,13 +28,16 @@ router.post('/fullshowInfo', async (req, res) => {
   const recsURL = `https://api.themoviedb.org/3/tv/${tvID}/recommendations?api_key=${API_KEY}&language=en-US`
 
   try {
-    const info = await axios.get(infoURL)
-    const credits = await axios.get(creditsURL)
-    const recs = await axios.get(recsURL)
+    // const info = await axios.get(infoURL)
+    // const credits = await axios.get(creditsURL)
+    // const recs = await axios.get(recsURL)
+
+    const promisechain = await Promise.all([axios.get(infoURL), axios.get(creditsURL), axios.get(recsURL)])
+
     const showinfo = {
-      info: info.data,
-      credits: credits.data,
-      recs: recs.data
+      info: promisechain[0].data,
+      credits: promisechain[1].data,
+      recs: promisechain[2].data
     }
 
     res.status(200).send(showinfo)
