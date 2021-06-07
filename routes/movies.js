@@ -9,7 +9,6 @@ router.use(bodyParser.urlencoded({ extended: false }))
 
 router.post('/popularMovies', async (req, res) => {
   const page = req.body.page || 1
-  // console.log(page)
   const popularURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`
 
   try {
