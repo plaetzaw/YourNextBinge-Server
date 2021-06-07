@@ -6,7 +6,7 @@ router.use(bodyParser.urlencoded({ extended: false }))
 
 router.post('/home', async (req, res) => {
   try {
-    res.status(200).send('Wake Up Heorku')
+    res.status(200).send('Please wake up Heroku!')
   } catch (e) {
     res.status(500).json({ message: 'An error has occured', error: e })
   }
