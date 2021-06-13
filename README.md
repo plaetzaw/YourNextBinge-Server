@@ -1,6 +1,6 @@
 [YourNextBinge](https://yournextbinge.netlify.app/) is meant to help users find their next title to bingewatch.
 
-To view the client-side code for this project, [click here](https://github.com/plaetzaw/MyNextBingeV2-Server)
+To view the client-side code for this project, [click here](https://github.com/plaetzaw/MyNextBingeV2-Client)
 
 This is the third project I've built using The Moving Database API.
 
